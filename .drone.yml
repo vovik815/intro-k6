@@ -1,20 +1,16 @@
 ---
   pipeline:
-    lint check:
+    run smoke test:
+      group: 'test'
+      image: 'loadimpact/k6:latest'
+      name: 'run smoke test'
       commands:
-        - "npm run lint"
-      image: "node:12.14-alpine"
-      name: "🔍 linting"
-      group: "tests"
+        - "k6 run test/smoke.load.test"
       when:
-        branch:
-          exclude:
-            - "master"
-            - "hotfix/*"
-            - "terraform/*"
-        event: "push"
+        event: push
     run k6:
       group: 'run'
+      name: run simple load test
       image: loadimpact/k6:latest
       commands:
         - "k6 run test/simple.load.test"
