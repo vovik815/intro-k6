@@ -1,10 +1,21 @@
 ---
   pipeline:
+    lint check:
+      image: "node:12.14-alpine"
+      name: "🔍 linting"
+      group: "tests"
+      when:
+        branch:
+          exclude:
+            - "master"
+            - "hotfix/*"
+            - "terraform/*"
+        event: "push"
     run k6:
       group: 'run'
       image: loadimpact/k6:latest
       commands:
         - "k6 run test/simple.load.test"
       when:
-        event: "deployment"
-        environment: "dev"
+        event: deployment
+        environment: dev
