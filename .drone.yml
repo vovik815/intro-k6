@@ -5,6 +5,8 @@ pipeline:
     name: 'run smoke test'
     commands:
       - "k6 run test/smoke.test.js"
+    environment:
+      - "TARGET_ENV=test"
     when:
       event: push
   run k6:

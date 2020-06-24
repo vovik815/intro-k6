@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { check, sleep } from 'k6';
+import { check, sleep, group } from 'k6';
 import { Rate } from 'k6/metrics';
 
 import { logFailedCheck } from './log.js';
@@ -26,15 +26,17 @@ export const options =  {
 };
 
 export default function() {
-    const res = http.get(`${baseURL('mock')}/public/crocodiles`);
-    const checkRes = check(res, {
-        'status is 200': r => r.status === 200,
-        'body is not empty': res.body.length > 0,
-      });
-    if (!checkRes){
-        myFailRate.add(!checkRes);
-        logFailedCheck(res);
-    }
-    // sleep frmo 0-5 seconds
-    sleep(Math.random() * 5 );
+    group('GET Crocodiles', () => {
+        const res = http.get(`${baseURL('mock')}/public/crocodiles`);
+        const checkRes = check(res, {
+            'status is 200': r => r.status === 200,
+            'body is not empty': res.body.length > 0,
+        });
+        if (!checkRes){
+            myFailRate.add(!checkRes);
+            logFailedCheck(res);
+        }
+        // sleep frmo 0-5 seconds
+        sleep(Math.random() * 5 );
+    });
 };
