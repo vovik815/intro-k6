@@ -1,19 +1,18 @@
----
-  pipeline:
-    run smoke test:
-      group: 'test'
-      image: 'loadimpact/k6:latest'
-      name: 'run smoke test'
-      commands:
-        - "k6 run test/smoke.load.test"
-      when:
-        event: push
-    run k6:
-      group: 'run'
-      name: run simple load test
-      image: loadimpact/k6:latest
-      commands:
-        - "k6 run test/simple.load.test"
-      when:
-        event: deployment
-        environment: dev
+pipeline:
+  run smoke test:
+    group: 'test'
+    image: 'loadimpact/k6:latest'
+    name: 'run smoke test'
+    commands:
+      - "k6 run test/smoke.load.test"
+    when:
+      event: push
+  run k6:
+    group: 'run'
+    name: run simple load test
+    image: loadimpact/k6:latest
+    commands:
+      - "k6 run test/simple.load.test"
+    when:
+      event: deployment
+      environment: dev
