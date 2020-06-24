@@ -4,7 +4,7 @@ pipeline:
     image: 'loadimpact/k6:latest'
     name: 'run smoke test'
     commands:
-      - "k6 run test/smoke.test"
+      - "k6 run test/smoke.test.js"
     when:
       event: push
   run k6:
