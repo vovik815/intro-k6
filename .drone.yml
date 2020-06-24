@@ -1,6 +1,8 @@
 ---
   pipeline:
     lint check:
+      commands:
+        - "npm run lint"
       image: "node:12.14-alpine"
       name: "🔍 linting"
       group: "tests"
