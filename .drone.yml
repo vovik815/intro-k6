@@ -1,0 +1,10 @@
+---
+  pipeline:
+    run k6:
+      group: 'run'
+      image: loadimpact/k6:latest
+      commands:
+        - "k6 run test/simple.load.test"
+      when:
+        event: "deployment"
+        environment: "dev"
