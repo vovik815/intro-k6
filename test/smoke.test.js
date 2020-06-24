@@ -26,7 +26,7 @@ export const options = {
 export default function() {
 
   group('GET Crocodiles', () => {
-    const res = http.get(`${baseURL('mock')}/public/crocodiles`);
+    const res = http.get(`${baseURL(targetEnv)}/public/crocodiles`);
     const checkRes = check(res, {
         'status is 200': r => r.status === 200,
         'body is not empty': res.body.length > 0,
