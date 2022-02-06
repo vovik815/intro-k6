@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+  build:
+    commands:
+      - k6 run test/lp-content-proxy/load.test.js
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
+artifacts:
+  files:
+    - './*.json'

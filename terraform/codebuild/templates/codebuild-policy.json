@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudWatchLogging",
+        "Effect": "Allow",
+        "Resource": [
+          "arn:aws:logs:${aws_region}:${aws_profile}:log-group:/aws/codebuild/${codebuild_project_name}",
+          "arn:aws:logs:${aws_region}:${aws_profile}:log-group:/aws/codebuild/${codebuild_project_name}:*"
+        ],
+        "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
+      },
+      {
+        "Sid": "CodeBuildUploadArtifacts",
+        "Effect": "Allow",
+        "Resource": ["${reports_bucket}/*"],
+        "Action": ["s3:PutObject"]
+      }
+    ]
+  }
